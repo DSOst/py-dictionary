@@ -83,14 +83,14 @@ class Dictionary:
         index = hash(key) % self._capacity
         bucket = self._buckets[index]
 
-        for node in bucket:
+        for i, node in enumerate(bucket):
             if node.key == key:
                 value = node.value
-                del bucket[index]
+                del bucket[i]
                 self._size -= 1
                 return value
 
-            if default:
-                return default
+        if default is not None:
+            return default
 
-            raise KeyError(key)
+        raise KeyError(key)
